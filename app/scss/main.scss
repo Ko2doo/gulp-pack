@@ -1,0 +1,26 @@
+// переменные
+$white: #fff;
+
+
+body{
+  background-color: #f39c9c;
+  color: $white;
+}
+
+.container{
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+  
+  h1{
+    font:{
+      size: 40px;
+      weight: 200;
+    }
+    text-align: center;
+    color: #000;
+  }
+}
