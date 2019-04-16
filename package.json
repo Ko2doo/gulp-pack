@@ -1,7 +1,7 @@
 {
   "name": "project",
   "version": "1.0.0",
-  "description": "Учимся работать с gulp",
+  "description": "Фронтенд окружение",
   "main": "index.js",
   "devDependencies": {
     "browser-sync": "^2.26.3",
