@@ -1,0 +1,21 @@
+// Контейнеры
+
+.container{
+	width: 1170px;
+	height: auto;
+	display: -webkit-flex;
+	display: -moz-flex;
+	display: -ms-flex;
+	display: -o-flex;
+	display: flex;
+	flex-direction: column;
+	flex-wrap: wrap;
+	padding: 0 20px 0 20px;
+	margin: 0 auto;
+	&.small{
+		width: 1024px;
+	}
+	&.mini{
+		width: 860px;
+	}
+}

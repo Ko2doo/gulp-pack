@@ -1,0 +1,58 @@
+// Храним анимации в переменных
+
+//Ease
+$ease-1s: all 0.1s ease;
+$ease-2s: all 0.2s ease;
+$ease-3s: all 0.3s ease;
+
+
+// eseIn
+$easeIn-1s: all 0.1s ease-in;
+$easeIn-2s: all 0.2s ease-in;
+$easeIn-3s: all 0.3s ease-in;
+
+// easeOut
+$easeOut-1s: all 0.1s ease-out;
+$easeOut-2s: all 0.2s ease-out;
+$easeOut-3s: all 0.3s ease-out;
+
+// easeInOut
+$easeInOut-1s: all 0.1s ease-in-out;
+$easeInOut-2s: all 0.2s ease-in-out;
+$easeInOut-3s: all 0.3s ease-in-out;
+
+//Animation
+
+@keyframes visible-right{
+  0%{
+    right: -30px;
+    opacity: 0;
+    -webkit-animation-timing-function: ease;
+    -o-animation-timing-function: ease;
+    animation-timing-function: ease;
+  }
+  100%{
+    right: 0;
+    opacity: 1;
+    -webkit-animation-timing-function: ease-in;
+    -o-animation-timing-function: ease-in;
+    animation-timing-function: ease-in;
+  }
+}
+
+@keyframes hide-right{
+  0%{
+    right: 0;
+    opacity: 1;
+    -webkit-animation-timing-function: ease;
+    -o-animation-timing-function: ease;
+    animation-timing-function: ease;
+  }
+  100%{
+    right: -30px;
+    opacity: 0;
+    -webkit-animation-timing-function: ease-out;
+    -o-animation-timing-function: ease-out;
+    animation-timing-function: ease-out;
+  }
+}

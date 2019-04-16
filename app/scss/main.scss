@@ -1,26 +1,10 @@
-// переменные
-$white: #fff;
+//Mixins
+@import 'mixins/_mixins.scss'; //mixins
 
+// Преднастройки
+@import "stylesheets/_stylesheets.scss";
 
-body{
-  background-color: #f39c9c;
-  color: $white;
-}
-
-.container{
-	display: -webkit-flex;
-	display: -moz-flex;
-	display: -ms-flex;
-	display: -o-flex;
-	display: flex;
-	flex-direction: column;
-  
-  h1{
-    font:{
-      size: 40px;
-      weight: 200;
-    }
-    text-align: center;
-    color: #000;
-  }
-}
+// Основные файлы
+@import "block/_header.scss";
+@import "block/_ghost.scss";
+@import "block/_aboutUs.scss";

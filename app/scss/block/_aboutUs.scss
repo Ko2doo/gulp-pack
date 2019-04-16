@@ -1,0 +1,35 @@
+#aboutUs{
+  padding: 35px 0 40px;
+  height: auto;
+  background-color: $sectiongrey;
+  box-shadow: inset 0px -5px 11px -1px $inputColor;
+  
+  .box{
+    
+    .box-content{
+      
+      .box-header{
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        
+        span.title-name{
+          @include exo2-medium;
+          font-size: 18px;
+          margin-top: 12px;
+        }
+      }
+      
+      .box-body{}
+      
+      .box-footer{}
+    
+    }//end .box-content
+    
+  
+  }//end .box
+  
+
+
+
+}//end #aboutUs

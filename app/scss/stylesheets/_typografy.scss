@@ -1,0 +1,21 @@
+@font-face{
+  font-family: "Exo2-Regular";
+  font-weight: 400;
+  src: url("../../fonts/Exo2-Regular.ttf");
+}
+@font-face{
+  font-family: "Exo2-Medium";
+  font-weight: 500;
+  src: url("../../fonts/Exo2-Medium.ttf");
+}
+@font-face{
+  font-family: "Exo2-Black";
+  font-weight: 900;
+  src: url("../../fonts/Exo2-Black.ttf");
+}
+
+html,
+body{
+  @include exo2-regular;
+  font-size: 14px;
+}
