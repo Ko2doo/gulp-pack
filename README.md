@@ -18,6 +18,8 @@
 
 # Команды по установке пакетов:
 
+Просто ввести команду: npm instal и наслаждаться
+
 npm install gulp gulp-sass browser-sync gulp-concat gulp-uglifyjs gulp-cssnano gulp-rename del gulp-imagemin gulp-cache gulp-autoprefixer --save-dev
 
 	* Подождите несколько минут и запускайте командой gulp.
