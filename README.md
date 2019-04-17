@@ -28,3 +28,5 @@ npm install gulp gulp-sass browser-sync gulp-concat gulp-uglifyjs gulp-cssnano g
 
 * Для запуска проекта введите gulp
 * Для сборки проекта в дерикторию "Dist" введите gulp build
+
+* Закомментил строки в тасках с настройками для "gulp-imagemin" пакета, т.к. он капризный.
