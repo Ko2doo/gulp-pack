@@ -6,7 +6,7 @@ var gulp        = require('gulp'),
   cssnano       = require('gulp-cssnano'),
   rename        = require('gulp-rename'),
   del           = require('del'),
-  imagemin      = require('gulp-imagemin'),
+  // imagemin      = require('gulp-imagemin'),
   cache         = require('gulp-cache'),
   autoprefixer  = require('gulp-autoprefixer');
 
@@ -62,11 +62,12 @@ gulp.task('clean', async function() {
 
 gulp.task('img', function() {
   return gulp.src('app/img/**/*')
-    .pipe(cache(imagemin({
-      interlaced: true,
-      progressive: true,
-      svgoPlugins: [{removeViewBox: false}],
-    })))
+    // Иногда он глючит раскомментируйте на свой страх и риск
+    // .pipe(cache(imagemin({
+    //   interlaced: true,
+    //   progressive: true,
+    //   svgoPlugins: [{removeViewBox: false}],
+    // })))
     .pipe(gulp.dest('dist/img'));
 });
 
