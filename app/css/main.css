@@ -155,11 +155,11 @@ body {
   margin: 0 auto;
 }
 
-.container.small {
+.container-small {
   width: 1024px;
 }
 
-.container.mini {
+.container-mini {
   width: 860px;
 }
 
@@ -250,4 +250,66 @@ ul.inline li {
   -webkit-flex-wrap: wrap;
       -ms-flex-wrap: wrap;
           flex-wrap: wrap;
+}
+
+.btn, .btn-black, .btn-white, .btn-sald, .btn-darkSald {
+  border: none;
+  max-width: 125px;
+  width: 100%;
+  height: 32px;
+  padding: 4px 8px;
+  -webkit-border-radius: 12px;
+          border-radius: 12px;
+  display: -webkit-flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  padding: 4px;
+  cursor: pointer;
+  -webkit-transition: all 0.2s ease-out;
+  -o-transition: all 0.2s ease-out;
+  transition: all 0.2s ease-out;
+}
+
+.btn:hover, .btn-black:hover, .btn-white:hover, .btn-sald:hover, .btn-darkSald:hover {
+  -webkit-transition: all 0.2s ease;
+  -o-transition: all 0.2s ease;
+  transition: all 0.2s ease;
+  -webkit-box-shadow: 0 9px 6px -4px #2c2c2c;
+          box-shadow: 0 9px 6px -4px #2c2c2c;
+}
+
+.btn-black {
+  background: #2c2c2c;
+}
+
+.btn-white {
+  background: #fff;
+}
+
+.btn-sald {
+  background: #6e9294;
+}
+
+.btn-darkSald {
+  background: #456d6f;
+}
+
+body {
+  background: #000;
+}
+
+.btn, .btn-black, .btn-white, .btn-sald, .btn-darkSald {
+  margin-bottom: 12px;
 }
