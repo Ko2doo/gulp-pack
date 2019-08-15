@@ -4,7 +4,7 @@ var gulp        = require('gulp'),
   gcmq          = require('gulp-group-css-media-queries'),
   concat        = require('gulp-concat'),
   uglify        = require('gulp-uglifyjs'),
-  cssnano       = require('gulp-cssnano'),
+  // cssnano       = require('gulp-cssnano'),
   rename        = require('gulp-rename'),
   del           = require('del'),
   cache         = require('gulp-cache'),
@@ -50,12 +50,12 @@ gulp.task('code', function() {
   .pipe(browserSync.reload({ stream: true }))
 });
 
-gulp.task('css-libs', function() {
-  return gulp.src('app/css/libs.css')
-    .pipe(cssnano())
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('app/css'));
-});
+// gulp.task('css-libs', function() {
+//   return gulp.src('app/css/libs.css')
+//     .pipe(cssnano())
+//     .pipe(rename({suffix: '.min'}))
+//     .pipe(gulp.dest('app/css'));
+// });
 
 
 // Группируем медиа-запросы
