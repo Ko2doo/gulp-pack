@@ -1,7 +1,12 @@
 body{
-  background: $black;
+  background: $lightBlack;
 }
 
 .btn{
   margin-bottom: 12px;
+}
+
+p{
+	padding: 2px 4px;
+	color: $darkWhite;
 }

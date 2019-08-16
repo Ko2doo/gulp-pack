@@ -307,9 +307,14 @@ ul.inline li {
 }
 
 body {
-  background: #000;
+  background: #2c2c2c;
 }
 
 .btn, .btn-black, .btn-white, .btn-sald, .btn-darkSald {
   margin-bottom: 12px;
+}
+
+p {
+  padding: 2px 4px;
+  color: #a7a7a7;
 }
