@@ -49,6 +49,7 @@ gulp.task('code', function() {
   .pipe(browserSync.reload({ stream: true }))
 });
 
+// минификация css
 gulp.task('css-libs', function() {
   return gulp.src([
     'app/css/libs.css',
