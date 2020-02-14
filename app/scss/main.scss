@@ -1,10 +1,8 @@
-//Mixins
-@import 'mixins/_mixins.scss'; //mixins
-
-// Преднастройки
+// Глобальные стили
 @import "stylesheets/_stylesheets.scss";
 
 
 // Основные файлы
-
-@import "_custom.scss";
+@import "blocks/_header.scss";
+@import "blocks/_section-hello.scss";
+@import "blocks/_footer.scss";

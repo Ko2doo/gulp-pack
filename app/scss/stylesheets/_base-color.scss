@@ -1,18 +1,18 @@
-//Цвета в переменных
+// primary background color's
 
-$white: #fff;
-$black: #000;
-$lightBlack: #2c2c2c;
-$darkWhite: #a7a7a7;
-$darkGrey-color: #5e5d5d;
-$dark-form: #353535;
-$linkColor: #6e9294;
-$outputColor: #456d6f;
+$facebook: #5e91ff;
+$tg: #36aee2;
+$vk: #5181b8;
 
-$menu-back: #464E78;
-$block-border: 1px solid #151313;
+// controls
+$main-arrow-bg: #c7cdd9;
 
-$inputColor: #0e0d0d;
-$goButton: #a2a2a2;
-$sectiongrey: #3c3b3b;
-$lightBlue: #69a3b5;
+//btn
+$main-rgba: rgba(253, 58, 58, 0.71);
+
+$main-shadow-hover: rgba(45, 45, 45, 0.05) 0 2px 2px,
+										rgba(49, 49, 49, 0.05) 0 4px 4px,
+										rgba(42, 42, 42, 0.05) 0 8px 8px,
+										rgba(32, 32, 32, 0.05) 0 16px 16px,
+										rgba(49, 49, 49, 0.05) 0 32px 32px,
+										rgba(35, 35, 35, 0.05) 0 64px 64px;

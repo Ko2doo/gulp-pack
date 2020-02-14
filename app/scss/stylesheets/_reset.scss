@@ -1,47 +1,37 @@
-// Сброс
-*{
-	padding: 0;
-	margin: 0;
+// Сброс и переназначение:
+@include reset();
+
+body,
+html{
+	font-size: 100%;
+	font-family: "Museo-Sans Cyrilic";
+	height: 100%;
+	$main-bg:	#f0f2f5;
+	background-color: $main-bg;
 }
 
-a,
-p,
-li,
-ul,
-span,
-h1,
-h2,
-h3,
-h4,
-h5{
-	padding: 0;
-	margin: 0;
+body{
+	display: flex;
+	flex-direction: column;
+}
+
+.main-content{
+	flex: 1 0 auto;
+}
+
+footer{
+	flex: 0 0 auto;
+}
+
+a{
 	text-decoration: none;
-	list-style: none;
 }
 
-a,
-button,
-input{
-	outline: none;
+button{
+	cursor: pointer;
 }
 
-span{
-  display: inline-block;
-}
-
-h1{
-  font-size: 42px;
-}
-h2{
-  font-size: 32px;
-}
-h3{
-  font-size: 24px;
-}
-h4{
-  font-size: 20px;
-}
-h5{
-  font-size: 18px;
+.container {
+  width: 100%;
+  box-sizing: border-box;
 }
