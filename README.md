@@ -24,12 +24,12 @@
 ```
 gulp-quick-start
 |-- app
-|		|-- css
-|		|-- fonts
-|		|-- js
-|		|-- scss
-|				|-- blocks
-|				|-- stylesheets
+|	|-- css
+|	|-- fonts
+|	|-- js
+|	|-- scss
+|		|-- blocks
+|		|-- stylesheets
 |
 |--- .gitignore
 |---  gulpfile.js
@@ -115,13 +115,13 @@ gulp-quick-start
 
 * функции ```em($px)```, ```rem($px)``` переводят пиксели в em или rem:
 **SCSS**
-```
+```scss
 .header{
 	padding: rem(30) 0 rem(25);
 }
 ```
-**css**
-```
+**Результат**
+```css
 .header{
 	padding: 1.875rem 0 1.5625rem;
 }
@@ -130,7 +130,7 @@ gulp-quick-start
 
 * миксин ```font($size, $weight)```
 **SCSS**
-```
+```scss
 .header{
 
 	& > p:first-child{
@@ -139,8 +139,8 @@ gulp-quick-start
 	}
 }
 ```
-**css**
-```
+**Результат**
+```css
 .header > p:first-child {
   font-size: 0.875em;
   font-weight: 600;
