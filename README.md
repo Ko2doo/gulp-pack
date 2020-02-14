@@ -24,12 +24,12 @@
 ```txt
 gulp-quick-start
 |-- app
-| |-- css
-|	|-- fonts
-|	|-- js
-|	|-- scss
-|		|-- blocks
-|		|-- stylesheets
+|   |-- css
+|   |-- fonts
+|   |-- js
+|   |-- scss
+|       |-- blocks
+|       |-- stylesheets
 |
 |--- .gitignore
 |---  gulpfile.js
