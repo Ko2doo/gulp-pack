@@ -21,10 +21,10 @@
 
 # Файловая структура:
 
-```
+```txt
 gulp-quick-start
 |-- app
-|	|-- css
+| |-- css
 |	|-- fonts
 |	|-- js
 |	|-- scss
