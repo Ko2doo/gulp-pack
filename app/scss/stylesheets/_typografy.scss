@@ -3,4 +3,16 @@
   font-family: "Exo 2', sans-serif";
   font-weight: normal;
   src: url("../fonts/Exo2-Regular.ttf");
+  
+/*@font-face{
+  font-family: "";
+  font-weight: ;
+  src: url("../../fonts/");
+}*/
+
+@mixin font($size, $weight) {
+	font:{
+		size: $size;
+		weight: $weight;
+	}
 }
