@@ -3,34 +3,5 @@
 
 body,
 html{
-	font-size: 100%;
-	font-family: "Museo-Sans Cyrilic";
-	height: 100%;
-	background-color: ghostwhite;
-}
 
-body{
-	display: flex;
-	flex-direction: column;
-}
-
-.main-content{
-	flex: 1 0 auto;
-}
-
-footer{
-	flex: 0 0 auto;
-}
-
-a{
-	text-decoration: none;
-}
-
-button{
-	cursor: pointer;
-}
-
-.container {
-  width: 100%;
-  box-sizing: border-box;
 }

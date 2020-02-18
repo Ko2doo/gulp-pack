@@ -1,16 +1,12 @@
-@font-face{
-  font-family: "Museo-Sans Cyrilic";
-  font-weight: 300;
-  src: url("../fonts/MuseoSansCyrl-300.woff");
-}
-@font-face{
-  font-family: "Museo-Sans Cyrilic";
-  font-weight: 500;
-  src: url("../fonts/MuseoSansCyrl-500.woff");
-}
-@font-face{
-  font-family: "Museo-Sans Cyrilic";
-  font-weight: 900;
-  src: url("../fonts/MuseoSansCyrl-900.woff");
-}
+/*@font-face{
+  font-family: "";
+  font-weight: ;
+  src: url("../../fonts/");
+}*/
 
+@mixin font($size, $weight) {
+	font:{
+		size: $size;
+		weight: $weight;
+	}
+}

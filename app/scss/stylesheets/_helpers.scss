@@ -1,20 +1,12 @@
 // Библиотека полезных функций:
 
-// переводим пиксели в ремы вызываем так: rem(18)
+// переводим пиксели в ремы вызываем так: rem(18px);
 @function rem($px) {
 	@return ($px / 16) +rem;
 }
 
-// переводим пиксели в em вызываем так: em(18)
 @function em($px) {
 	@return ($px / 16) +em;
-}
-
-@mixin font($size, $weight) {
-	font:{
-		size: $size;
-		weight: $weight;
-	}
 }
 
 .container {
