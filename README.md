@@ -62,7 +62,9 @@ gulp-quick-start
 
 # Немного о CSS-сетке smart-grid
 В сборщик включена CSS-сетка [smart-grid](https://github.com/dmitry-lavrik/smart-grid) от [Дмитрия Лаврика](https://dmitrylavrik.ru/). Она позволяет избавиться от
-лишних классов в разметке за счёт использования примесей в SCSS и ускоряет адаптивную вёрстку. Конфигурация уже настроена в соответствии с сеткой [Bootstrap](https://getbootstrap.com/). За улучшение сетки спасибо [Алексеичу](https://github.com/andreyalexeich)
+лишних классов в разметке за счёт использования примесей в SCSS и ускоряет адаптивную вёрстку. Конфигурация уже настроена в соответствии с сеткой [Bootstrap](https://getbootstrap.com/). За улучшение сетки спасибо [Алексеевичу](https://github.com/andreyalexeich)
+
+P.S. Полезный ресурс [smart-grid](https://grid4web.ru/)
 Пример использования:
 
 **SCSS**
