@@ -1,6 +1,13 @@
 .header{
 	padding: rem(30) 0 rem(25);
 
+	.col{
+		@include md-block(){
+			padding-left: $fields;
+			padding-right: $fields;
+		}
+	}
+
 	& > p:first-child{
 		@include font(em(14), 600);
 		text-align: center;

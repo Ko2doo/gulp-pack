@@ -120,7 +120,7 @@ html {
   font-size: 100%;
   font-family: "Museo-Sans Cyrilic";
   height: 100%;
-  background-color: #f0f2f5;
+  background-color: ghostwhite;
 }
 
 body {
@@ -511,6 +511,11 @@ button {
 @media screen and (max-width: 48rem) {
   .container {
     max-width: 43.125rem;
+  }
+
+  .header .col {
+    padding-left: 0.9375rem;
+    padding-right: 0.9375rem;
   }
 }
 
