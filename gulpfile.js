@@ -29,9 +29,6 @@ gulp.task('sass', async function() {
 //таск для синхонизации с браузером
 gulp.task('browser-sync', async function(cb) {
   browserSync({
-    minify: false,
-    injectChanges: true,
-    ui: false,
     server: {
       baseDir: 'app'
     },
