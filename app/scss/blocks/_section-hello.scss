@@ -15,8 +15,9 @@
 		@include size(4);
 		@include size-md(6);
 		@include size-sm(12);
+		@include col-padding();
 
-		@include md-block(){
+		@include sm-block(){
 			margin-top: $offset_one_side;
 
 				&:first-child{
@@ -25,13 +26,21 @@
 		}
 
 			&:nth-child(1){
+				height: rem(250);
 				background-color: cadetblue;
 			}
 			&:nth-child(2){
+				height: rem(320);
 				background-color: moccasin;
 			}
 			&:nth-child(3){
+				height: rem(160);
 				background-color: darksalmon;
+			}
+
+			&-txt{
+				margin-top: rem(12);
+				margin-bottom: rem(8);
 			}
 
 	}
