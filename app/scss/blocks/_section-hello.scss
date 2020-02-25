@@ -1,8 +1,44 @@
 .section-hello{
 
+	.section-content{
+		@include container();
+
+		display: flex;
+		flex-wrap: wrap;
+		width: 100%;
+		padding-top: rem(20);
+		box-sizing: border-box;
+	}
+
+	.col{
+		@include col();
+		@include size(4);
+		@include size-md(6);
+		@include size-sm(12);
+
+		@include md-block(){
+			margin-top: $offset_one_side;
+
+				&:first-child{
+					margin-top: 0;
+				}
+		}
+
+			&:nth-child(1){
+				background-color: cadetblue;
+			}
+			&:nth-child(2){
+				background-color: moccasin;
+			}
+			&:nth-child(3){
+				background-color: darksalmon;
+			}
+
+	}
+
 	& > p:first-child{
 		@include font(em(22), 600);
-		padding: rem(20) 0 rem(20);
+		margin: rem(20) 0 rem(20);
 		text-align: center;
 	}
 }

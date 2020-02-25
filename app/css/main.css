@@ -163,24 +163,6 @@ button {
   box-sizing: border-box;
 }
 
-@font-face {
-  font-family: "Museo-Sans Cyrilic";
-  font-weight: 300;
-  src: url("../fonts/MuseoSansCyrl-300.woff");
-}
-
-@font-face {
-  font-family: "Museo-Sans Cyrilic";
-  font-weight: 500;
-  src: url("../fonts/MuseoSansCyrl-500.woff");
-}
-
-@font-face {
-  font-family: "Museo-Sans Cyrilic";
-  font-weight: 900;
-  src: url("../fonts/MuseoSansCyrl-900.woff");
-}
-
 @-webkit-keyframes fade-in {
   0% {
     opacity: 0;
@@ -482,10 +464,50 @@ button {
   text-align: center;
 }
 
+.section-hello .section-content {
+  max-width: 1170px;
+  margin: 0 auto;
+  padding-left: 0.9375rem;
+  padding-right: 0.9375rem;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  width: 100%;
+  padding-top: 1.25rem;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.section-hello .col {
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+  word-wrap: break-word;
+  margin-left: 0.9375rem;
+  margin-right: 0.9375rem;
+  width: -webkit-calc(33.33333% - 1.875rem);
+  width: calc(33.33333% - 1.875rem);
+}
+
+.section-hello .col:nth-child(1) {
+  background-color: cadetblue;
+}
+
+.section-hello .col:nth-child(2) {
+  background-color: moccasin;
+}
+
+.section-hello .col:nth-child(3) {
+  background-color: darksalmon;
+}
+
 .section-hello > p:first-child {
   font-size: 1.375em;
   font-weight: 600;
-  padding: 1.25rem 0 1.25rem;
+  margin: 1.25rem 0 1.25rem;
   text-align: center;
 }
 
@@ -513,14 +535,27 @@ button {
     max-width: 43.125rem;
   }
 
-  .header .col {
-    padding-left: 0.9375rem;
-    padding-right: 0.9375rem;
+  .section-hello .col {
+    width: -webkit-calc(50% - 1.875rem);
+    width: calc(50% - 1.875rem);
+  }
+
+  .section-hello .col {
+    margin-top: 0.9375rem;
+  }
+
+  .section-hello .col:first-child {
+    margin-top: 0;
   }
 }
 
 @media screen and (max-width: 36rem) {
   .container {
     max-width: 31.875rem;
+  }
+
+  .section-hello .col {
+    width: -webkit-calc(100% - 1.875rem);
+    width: calc(100% - 1.875rem);
   }
 }
