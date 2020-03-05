@@ -27,13 +27,13 @@ gulp.task('sass', async function() {
 });
 
 //таск для синхонизации с браузером
-gulp.task('browser-sync', async function() {
+gulp.task('browser-sync', async function(cb) {
   browserSync({
     server: {
       baseDir: 'app'
     },
     notify: false
-  });
+  }, cb);
 });
 
 // настройки сетки smart-grid
