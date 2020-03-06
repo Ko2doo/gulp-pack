@@ -1,8 +1,8 @@
-/*@font-face{
-  font-family: "";
-  font-weight: ;
-  src: url("../../fonts/");
-}*/
+@font-face{
+  font-family: "Exo 2', sans-serif";
+  font-weight: normal;
+  src: url("../fonts/Exo2-Regular.ttf");
+}
 
 @mixin font($size, $weight) {
 	font:{
