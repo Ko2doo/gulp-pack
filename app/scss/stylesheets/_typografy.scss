@@ -1,2 +1,12 @@
-// подключение шрифтов
+/*@font-face{
+  font-family: "";
+  font-weight: ;
+  src: url("../../fonts/");
+}*/
 
+@mixin font($size, $weight) {
+	font:{
+		size: $size;
+		weight: $weight;
+	}
+}
