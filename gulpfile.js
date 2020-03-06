@@ -1,18 +1,16 @@
-var gulp            = require('gulp'),
-    sass            = require('gulp-sass'),
-    smartgrid       = require('smart-grid'),
-    htmlhint        = require("gulp-htmlhint"),
-    htmlhintConfig  = require('htmlhint-htmlacademy'),
-    browserSync     = require('browser-sync'),
-    addsrc          = require('gulp-add-src'),
-    gcmq            = require('gulp-group-css-media-queries'),
-    concat          = require('gulp-concat'),
-    uglify          = require('gulp-uglifyjs'),
-    cssnano         = require('gulp-cssnano'),
-    rename          = require('gulp-rename'),
-    del             = require('del'),
-    cache           = require('gulp-cache'),
-    autoprefixer    = require('gulp-autoprefixer');
+var gulp          = require('gulp'),
+    sass          = require('gulp-sass'),
+    smartgrid     = require('smart-grid'),
+    browserSync   = require('browser-sync'),
+    addsrc        = require('gulp-add-src'),
+    gcmq          = require('gulp-group-css-media-queries'),
+    concat        = require('gulp-concat'),
+    uglify        = require('gulp-uglifyjs'),
+    cssnano       = require('gulp-cssnano'),
+    rename        = require('gulp-rename'),
+    del           = require('del'),
+    cache         = require('gulp-cache'),
+    autoprefixer  = require('gulp-autoprefixer');
 
 
 // Таск для Sass
@@ -76,8 +74,6 @@ gulp.task('smart-grid', (cb) => {
 
 gulp.task('code', function() {
   return gulp.src('app/**/*.html')
-  .pipe(htmlhint(htmlhintConfig))
-  .pipe(htmlhint.reporter())
   .pipe(browserSync.reload({ stream: true }))
 });
 
