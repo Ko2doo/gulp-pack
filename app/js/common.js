@@ -1,5 +1,8 @@
 $(function(){
+<<<<<<< HEAD
 	// your code
+=======
+>>>>>>> b4c78f3cc5f4ed1066f3a1a72e2729203427d3ba
 //Скрипты:
 
 	// Включаем Aos.js
