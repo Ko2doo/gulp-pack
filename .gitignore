@@ -1,1 +1,3 @@
-node_modules/
+core/source/**
+core/node_modules/**
+/.idea/**

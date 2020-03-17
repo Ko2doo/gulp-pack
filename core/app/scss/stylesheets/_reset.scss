@@ -1,0 +1,23 @@
+// Сброс и переназначение:
+@include reset();
+
+body,
+html{
+<<<<<<< HEAD
+	font-family: "Exo 2', sans-serif";
+	font-size: 100%;
+	height: 100%;
+	background-color: ghostwhite;
+}
+
+body{
+	display: flex;
+	flex-direction: column;
+}
+
+.main-content{
+	flex: 1 0 auto;
+=======
+
+>>>>>>> b4c78f3cc5f4ed1066f3a1a72e2729203427d3ba
+}
