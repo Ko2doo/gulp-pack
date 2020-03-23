@@ -83,21 +83,20 @@ gulp.task('code', function() {
 // Объединяем все js либы в один файл
 gulp.task('scripts', async function() {
   return gulp.src(['node_modules/jquery/dist/jquery.js'])
-    .pipe(addsrc.append('node_modules/jquery-circle-progress/dist/circle-progress.js'))
     .pipe(concat('libs.js'))
     .pipe(gulp.dest('app/js'))
     .pipe(browserSync.reload({stream: true}));
 });
 
 // объединям все css библиотеки в одну
-gulp.task('css-lib', function() {
-  return gulp.src([
-      'node_modules/normalize.css/normalize.css',
-    ])
-    .pipe(concat('_lib.scss'))
-    .pipe(gulp.dest('app/scss'))
-    .pipe(browserSync.reload({stream: true}));
-});
+// gulp.task('css-lib', function() {
+//   return gulp.src([
+//       'node_modules/normalize.css/normalize.css',
+//     ])
+//     .pipe(concat('_lib.scss'))
+//     .pipe(gulp.dest('app/scss'))
+//     .pipe(browserSync.reload({stream: true}));
+// });
 
 
 gulp.task('clean', async function() {
@@ -147,7 +146,7 @@ gulp.task('watch', function() {
 });
 
 gulp.task('default',
-     gulp.parallel('clear-cache', 'smart-grid', 'sass', 'css-lib', 'scripts', 'browser-sync', 'watch'));
+     gulp.parallel('clear-cache', 'smart-grid', 'sass', 'browser-sync', 'watch'));
 
 gulp.task('build',
      gulp.series('clean', 'clear-cache', 'prebuild'));
