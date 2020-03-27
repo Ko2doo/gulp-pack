@@ -3,15 +3,13 @@
 function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
 /**
-* @preserve HTML5 Shiv 3.7.3 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
-*/
-;
-
+ * @preserve HTML5 Shiv 3.7.3 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
+ */
 (function (window, document) {
   /*jshint evil:true */
 
   /** version */
-  var version = '3.7.3';
+  var version = "3.7.3";
   /** Preset options */
 
   var options = window.html5 || {};
@@ -26,7 +24,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   var supportsHtml5Styles;
   /** Name of the expando, to work with multiple documents or to re-shiv one document */
 
-  var expando = '_html5shiv';
+  var expando = "_html5shiv";
   /** The id for the the documents expando */
 
   var expanID = 0;
@@ -39,16 +37,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
   (function () {
     try {
-      var a = document.createElement('a');
-      a.innerHTML = '<xyz></xyz>'; //if the hidden property is implemented we can assume, that the browser supports basic HTML5 Styles
+      var a = document.createElement("a");
+      a.innerHTML = "<xyz></xyz>"; //if the hidden property is implemented we can assume, that the browser supports basic HTML5 Styles
 
-      supportsHtml5Styles = 'hidden' in a;
+      supportsHtml5Styles = "hidden" in a;
 
       supportsUnknownElements = a.childNodes.length == 1 || function () {
         // assign a false positive if unable to shiv
-        document.createElement('a');
+        document.createElement("a");
         var frag = document.createDocumentFragment();
-        return typeof frag.cloneNode == 'undefined' || typeof frag.createDocumentFragment == 'undefined' || typeof frag.createElement == 'undefined';
+        return typeof frag.cloneNode == "undefined" || typeof frag.createDocumentFragment == "undefined" || typeof frag.createElement == "undefined";
       }();
     } catch (e) {
       // assign a false positive if detection fails => unable to shiv
@@ -68,9 +66,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
   function addStyleSheet(ownerDocument, cssText) {
-    var p = ownerDocument.createElement('p'),
-        parent = ownerDocument.getElementsByTagName('head')[0] || ownerDocument.documentElement;
-    p.innerHTML = 'x<style>' + cssText + '</style>';
+    var p = ownerDocument.createElement("p"),
+        parent = ownerDocument.getElementsByTagName("head")[0] || ownerDocument.documentElement;
+    p.innerHTML = "x<style>" + cssText + "</style>";
     return parent.insertBefore(p.lastChild, parent.firstChild);
   }
   /**
@@ -82,7 +80,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
   function getElements() {
     var elements = html5.elements;
-    return typeof elements == 'string' ? elements.split(' ') : elements;
+    return typeof elements == "string" ? elements.split(" ") : elements;
   }
   /**
    * Extends the built-in list of html5 elements
@@ -95,23 +93,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   function addElements(newElements, ownerDocument) {
     var elements = html5.elements;
 
-    if (typeof elements != 'string') {
-      elements = elements.join(' ');
+    if (typeof elements != "string") {
+      elements = elements.join(" ");
     }
 
-    if (typeof newElements != 'string') {
-      newElements = newElements.join(' ');
+    if (typeof newElements != "string") {
+      newElements = newElements.join(" ");
     }
 
-    html5.elements = elements + ' ' + newElements;
+    html5.elements = elements + " " + newElements;
     shivDocument(ownerDocument);
   }
   /**
-  * Returns the data associated to the given document
-  * @private
-  * @param {Document} ownerDocument The document.
-  * @returns {Object} An object of data.
-  */
+   * Returns the data associated to the given document
+   * @private
+   * @param {Document} ownerDocument The document.
+   * @returns {Object} An object of data.
+   */
 
 
   function getExpandoData(ownerDocument) {
@@ -221,12 +219,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return createElement(nodeName, ownerDocument, data);
     };
 
-    ownerDocument.createDocumentFragment = Function('h,f', 'return function(){' + 'var n=f.cloneNode(),c=n.createElement;' + 'h.shivMethods&&(' + // unroll the `createElement` calls
+    ownerDocument.createDocumentFragment = Function("h,f", "return function(){" + "var n=f.cloneNode(),c=n.createElement;" + "h.shivMethods&&(" + // unroll the `createElement` calls
     getElements().join().replace(/[\w\-:]+/g, function (nodeName) {
       data.createElem(nodeName);
       data.frag.createElement(nodeName);
       return 'c("' + nodeName + '")';
-    }) + ');return n}')(html5, data.frag);
+    }) + ");return n}")(html5, data.frag);
   }
   /*--------------------------------------------------------------------------*/
 
@@ -247,9 +245,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     if (html5.shivCSS && !supportsHtml5Styles && !data.hasCSS) {
       data.hasCSS = !!addStyleSheet(ownerDocument, // corrects block display not defined in IE6/7/8/9
-      'article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}' + // adds styling not present in IE6/7/8/9
-      'mark{background:#FF0;color:#000}' + // hides non-rendered elements
-      'template{display:none}');
+      "article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}" + // adds styling not present in IE6/7/8/9
+      "mark{background:#FF0;color:#000}" + // hides non-rendered elements
+      "template{display:none}");
     }
 
     if (!supportsUnknownElements) {
@@ -277,26 +275,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
      * @memberOf html5
      * @type Array|String
      */
-    'elements': options.elements || 'abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output picture progress section summary template time video',
+    elements: options.elements || "abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output picture progress section summary template time video",
 
     /**
      * current version of html5shiv
      */
-    'version': version,
+    version: version,
 
     /**
      * A flag to indicate that the HTML5 style sheet should be inserted.
      * @memberOf html5
      * @type Boolean
      */
-    'shivCSS': options.shivCSS !== false,
+    shivCSS: options.shivCSS !== false,
 
     /**
      * Is equal to true if a browser supports creating unknown/HTML5 elements
      * @memberOf html5
      * @type boolean
      */
-    'supportsUnknownElements': supportsUnknownElements,
+    supportsUnknownElements: supportsUnknownElements,
 
     /**
      * A flag to indicate that the document's `createElement` and `createDocumentFragment`
@@ -304,16 +302,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
      * @memberOf html5
      * @type Boolean
      */
-    'shivMethods': options.shivMethods !== false,
+    shivMethods: options.shivMethods !== false,
 
     /**
      * A string to describe the type of `html5` object ("default" or "default print").
      * @memberOf html5
      * @type String
      */
-    'type': 'default',
+    type: "default",
     // shivs the document according to the specified `html5` object options
-    'shivDocument': shivDocument,
+    shivDocument: shivDocument,
     //creates a shived element
     createElement: createElement,
     //creates a shived documentFragment
@@ -328,22 +326,20 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
   shivDocument(document);
 
-  if ((typeof module === "undefined" ? "undefined" : _typeof(module)) == 'object' && module.exports) {
+  if ((typeof module === "undefined" ? "undefined" : _typeof(module)) == "object" && module.exports) {
     module.exports = html5;
   }
 })(typeof window !== "undefined" ? window : void 0, document);
 /**
-* @preserve HTML5 Shiv 3.7.3 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
-*/
+ * @preserve HTML5 Shiv 3.7.3 | @afarkas @jdalton @jon_neal @rem | MIT/GPL2 Licensed
+ */
 
-
-;
 
 (function (window, document) {
   /*jshint evil:true */
 
   /** version */
-  var version = '3.7.3';
+  var version = "3.7.3";
   /** Preset options */
 
   var options = window.html5 || {};
@@ -358,7 +354,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   var supportsHtml5Styles;
   /** Name of the expando, to work with multiple documents or to re-shiv one document */
 
-  var expando = '_html5shiv';
+  var expando = "_html5shiv";
   /** The id for the the documents expando */
 
   var expanID = 0;
@@ -371,16 +367,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
   (function () {
     try {
-      var a = document.createElement('a');
-      a.innerHTML = '<xyz></xyz>'; //if the hidden property is implemented we can assume, that the browser supports basic HTML5 Styles
+      var a = document.createElement("a");
+      a.innerHTML = "<xyz></xyz>"; //if the hidden property is implemented we can assume, that the browser supports basic HTML5 Styles
 
-      supportsHtml5Styles = 'hidden' in a;
+      supportsHtml5Styles = "hidden" in a;
 
       supportsUnknownElements = a.childNodes.length == 1 || function () {
         // assign a false positive if unable to shiv
-        document.createElement('a');
+        document.createElement("a");
         var frag = document.createDocumentFragment();
-        return typeof frag.cloneNode == 'undefined' || typeof frag.createDocumentFragment == 'undefined' || typeof frag.createElement == 'undefined';
+        return typeof frag.cloneNode == "undefined" || typeof frag.createDocumentFragment == "undefined" || typeof frag.createElement == "undefined";
       }();
     } catch (e) {
       // assign a false positive if detection fails => unable to shiv
@@ -400,9 +396,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
 
   function addStyleSheet(ownerDocument, cssText) {
-    var p = ownerDocument.createElement('p'),
-        parent = ownerDocument.getElementsByTagName('head')[0] || ownerDocument.documentElement;
-    p.innerHTML = 'x<style>' + cssText + '</style>';
+    var p = ownerDocument.createElement("p"),
+        parent = ownerDocument.getElementsByTagName("head")[0] || ownerDocument.documentElement;
+    p.innerHTML = "x<style>" + cssText + "</style>";
     return parent.insertBefore(p.lastChild, parent.firstChild);
   }
   /**
@@ -414,7 +410,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
   function getElements() {
     var elements = html5.elements;
-    return typeof elements == 'string' ? elements.split(' ') : elements;
+    return typeof elements == "string" ? elements.split(" ") : elements;
   }
   /**
    * Extends the built-in list of html5 elements
@@ -427,23 +423,23 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
   function addElements(newElements, ownerDocument) {
     var elements = html5.elements;
 
-    if (typeof elements != 'string') {
-      elements = elements.join(' ');
+    if (typeof elements != "string") {
+      elements = elements.join(" ");
     }
 
-    if (typeof newElements != 'string') {
-      newElements = newElements.join(' ');
+    if (typeof newElements != "string") {
+      newElements = newElements.join(" ");
     }
 
-    html5.elements = elements + ' ' + newElements;
+    html5.elements = elements + " " + newElements;
     shivDocument(ownerDocument);
   }
   /**
-  * Returns the data associated to the given document
-  * @private
-  * @param {Document} ownerDocument The document.
-  * @returns {Object} An object of data.
-  */
+   * Returns the data associated to the given document
+   * @private
+   * @param {Document} ownerDocument The document.
+   * @returns {Object} An object of data.
+   */
 
 
   function getExpandoData(ownerDocument) {
@@ -553,12 +549,12 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
       return createElement(nodeName, ownerDocument, data);
     };
 
-    ownerDocument.createDocumentFragment = Function('h,f', 'return function(){' + 'var n=f.cloneNode(),c=n.createElement;' + 'h.shivMethods&&(' + // unroll the `createElement` calls
+    ownerDocument.createDocumentFragment = Function("h,f", "return function(){" + "var n=f.cloneNode(),c=n.createElement;" + "h.shivMethods&&(" + // unroll the `createElement` calls
     getElements().join().replace(/[\w\-:]+/g, function (nodeName) {
       data.createElem(nodeName);
       data.frag.createElement(nodeName);
       return 'c("' + nodeName + '")';
-    }) + ');return n}')(html5, data.frag);
+    }) + ");return n}")(html5, data.frag);
   }
   /*--------------------------------------------------------------------------*/
 
@@ -579,9 +575,9 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
     if (html5.shivCSS && !supportsHtml5Styles && !data.hasCSS) {
       data.hasCSS = !!addStyleSheet(ownerDocument, // corrects block display not defined in IE6/7/8/9
-      'article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}' + // adds styling not present in IE6/7/8/9
-      'mark{background:#FF0;color:#000}' + // hides non-rendered elements
-      'template{display:none}');
+      "article,aside,dialog,figcaption,figure,footer,header,hgroup,main,nav,section{display:block}" + // adds styling not present in IE6/7/8/9
+      "mark{background:#FF0;color:#000}" + // hides non-rendered elements
+      "template{display:none}");
     }
 
     if (!supportsUnknownElements) {
@@ -609,26 +605,26 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
      * @memberOf html5
      * @type Array|String
      */
-    'elements': options.elements || 'abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output picture progress section summary template time video',
+    elements: options.elements || "abbr article aside audio bdi canvas data datalist details dialog figcaption figure footer header hgroup main mark meter nav output picture progress section summary template time video",
 
     /**
      * current version of html5shiv
      */
-    'version': version,
+    version: version,
 
     /**
      * A flag to indicate that the HTML5 style sheet should be inserted.
      * @memberOf html5
      * @type Boolean
      */
-    'shivCSS': options.shivCSS !== false,
+    shivCSS: options.shivCSS !== false,
 
     /**
      * Is equal to true if a browser supports creating unknown/HTML5 elements
      * @memberOf html5
      * @type boolean
      */
-    'supportsUnknownElements': supportsUnknownElements,
+    supportsUnknownElements: supportsUnknownElements,
 
     /**
      * A flag to indicate that the document's `createElement` and `createDocumentFragment`
@@ -636,16 +632,16 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
      * @memberOf html5
      * @type Boolean
      */
-    'shivMethods': options.shivMethods !== false,
+    shivMethods: options.shivMethods !== false,
 
     /**
      * A string to describe the type of `html5` object ("default" or "default print").
      * @memberOf html5
      * @type String
      */
-    'type': 'default',
+    type: "default",
     // shivs the document according to the specified `html5` object options
-    'shivDocument': shivDocument,
+    shivDocument: shivDocument,
     //creates a shived element
     createElement: createElement,
     //creates a shived documentFragment
@@ -660,7 +656,7 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
 
   shivDocument(document);
 
-  if ((typeof module === "undefined" ? "undefined" : _typeof(module)) == 'object' && module.exports) {
+  if ((typeof module === "undefined" ? "undefined" : _typeof(module)) == "object" && module.exports) {
     module.exports = html5;
   }
 })(typeof window !== "undefined" ? window : void 0, document);
@@ -669,10 +665,10 @@ var hello = function hello(subject) {
   return console.log("Hello, ".concat(subject, "!"));
 };
 
-alert('hello man');
+alert("hello man");
 
 var hello2 = function hello2(subject) {
   return console.log("Hello, ".concat(subject, "!"));
 };
 
-alert('hello');
+alert("hello");

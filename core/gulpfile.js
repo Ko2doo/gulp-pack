@@ -14,20 +14,10 @@ var gulp            = require('gulp'),
     cache           = require('gulp-cache'),
     autoprefixer    = require('gulp-autoprefixer'),
     babel           = require('gulp-babel'),
-    sourcemaps      = require('gulp-sourcemaps');
-
-// Таск для Sass
-gulp.task('sass', async function() {
-  return gulp.src('app/scss/**/*.scss')
-    .pipe(sass({
-        outputStyle: 'expanded',
-        errorLogToConsole: true
-      })).on('error', sass.logError)
-    .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
-    .pipe(gcmq()) //группировка медиазапросов
-    .pipe(gulp.dest('app/css'))
-    .pipe(browserSync.reload({stream: true}));
-});
+    sourcemaps      = require('gulp-sourcemaps'),
+    prettier        = require('gulp-prettier'),
+    htmlValidator   = require('gulp-w3c-html-validator'),
+    eslint          = require('gulp-eslint');
 
 //таск для синхонизации с браузером
 gulp.task('browser-sync', async function(cb) {
@@ -75,16 +65,39 @@ gulp.task('smart-grid', (cb) => {
   cb();
 });
 
-gulp.task('code', function() {
-  return gulp.src('app/**/*.html')
+// таск html разметки
+
+gulp.task('html', function() {
+  return gulp.src('./app/**/*.html')
   .pipe(htmlhint(htmlhintConfig))
   .pipe(htmlhint.reporter())
+  .pipe(htmlValidator())
   .pipe(browserSync.reload({ stream: true }))
 });
 
-// Объединяем все js в один файл
+// Таск для стилей
+gulp.task('styles', async function() {
+  return gulp.src('./app/scss/**/*.scss')
+    .pipe(sass({
+        outputStyle: 'expanded',
+        errorLogToConsole: true
+      })).on('error', sass.logError)
+    .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
+    .pipe(gcmq()) //группировка медиазапросов
+    .pipe(gulp.dest('app/css'))
+    .pipe(browserSync.reload({stream: true}));
+});
 
+gulp.task('stylesMin', async function() {
+  return gulp.src('./app/css/main.css')
+    .pipe(cssnano())
+    .pipe(rename({suffix: '.min'}))
+    .pipe(gulp.dest('./app/css'))
+    .pipe(browserSync.reload({stream: true}));
+});
 
+// таск работы со скриптами
+// собираем плагины и библиотеки
 gulp.task('scriptLib', function() {
   return gulp
         .src('./app/js/libs/*.js')
@@ -92,16 +105,19 @@ gulp.task('scriptLib', function() {
         .pipe(gulp.dest('./app/js'))
         .pipe(browserSync.reload({ stream: true }))
 });
+// собираем рукописный код
 gulp.task('scriptMain', function() {
   return gulp
         .src([
           './app/js/main/test.js',
           './app/js/main/test2.js'
         ])
+        .pipe(eslint())
         .pipe(concat('main.js'))
         .pipe(gulp.dest('./app/js'))
         .pipe(browserSync.reload({ stream: true }))
 });
+// собираем все скрипты
 gulp.task('scriptAll', function() {
   return gulp
         .src([
@@ -113,6 +129,7 @@ gulp.task('scriptAll', function() {
         .pipe(gulp.dest('./app/js/'))
         .pipe(browserSync.reload({ stream: true }))
 });
+// минифицируем скрипт
 gulp.task('scriptMin', function() {
   return gulp
         .src('./app/js/index.js')
@@ -120,40 +137,21 @@ gulp.task('scriptMin', function() {
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('./app/js/'))
 });
-
-  // return gulp.src('app/js')
-  //   .pipe(addsrc.prepend('./app/js/libs/**/*.js'))
-  //   .pipe(concat('libs.js'))
-  //   .pipe(gulp.dest('./app/js'))
-  //   .pipe(addsrc.append('./app/js/main/**/*.js'))
-  //   .pipe(concat('main.js'))
-  //   .pipe(gulp.dest('./app/js'))
-  //   .pipe(addsrc.append([
-  //     './app/js/libs.js',
-  //     './app/js/main.js'
-  //   ]))
-  //   .pipe(concat('index.js'))
-  //   .pipe(babel())
-  //   // минификация скриптов
-  //   .pipe(addsrc.append('./app/js/index.js'))
-  //   .pipe(uglify())
-  //   .pipe(rename({suffix: '.min'}))
-  //   .pipe(gulp.src('./app/js/index.js'))
-    // .pipe(sourcemaps.init({largeFile: true}))
-    // .pipe(sourcemaps.write("./maps/"))
-    // .pipe(gulp.dest('./app/js'))
-
-
-// объединям все css библиотеки в одну
-// gulp.task('css-lib', function() {
-//   return gulp.src([
-//       'node_modules/normalize.css/normalize.css',
-//     ])
-//     .pipe(concat('_lib.scss'))
-//     .pipe(gulp.dest('app/scss'))
-//     .pipe(browserSync.reload({stream: true}));
-// });
-
+// делаем разметку красивой
+gulp.task('prettier', function() {
+  return gulp
+        .src([
+          './app/**/*.html',
+          './app/scss/**/*.scss',
+          './app/css/**/*.css',
+          './app/js/main/*.js',
+          './app/js/libs/*.js'
+        ])
+        .pipe(prettier({editorconfig: true}))
+        .pipe(gulp.dest(function(file){
+            return file.base;
+        }));
+});
 
 gulp.task('clean', async function() {
     return del.sync([
@@ -196,18 +194,18 @@ gulp.task('prebuild', async function(){
 
 // Следим за файлами
 gulp.task('watch', function() {
-  gulp.watch('app/scss/**/*.scss', gulp.parallel('sass'));
-  gulp.watch('app/**/*.html', gulp.parallel('code'));
+    gulp.watch('app/**/*.html', gulp.parallel('html'));
+  gulp.watch('app/scss/**/*.scss', gulp.series('styles', 'stylesMin'));
   gulp.watch('app/js/main/*.js', gulp.series('scriptLib', 'scriptMain', 'scriptAll', 'scriptMin'));
 });
 
 gulp.task('default',
   gulp.series(
-        gulp.parallel('clear-cache', 'smart-grid', 'sass'),
+        gulp.parallel('clear-cache', 'smart-grid'),
+        gulp.series('html', 'styles', 'stylesMin'),
         gulp.series('scriptLib', 'scriptMain', 'scriptAll'),
-        gulp.parallel( 'browser-sync', 'watch')
+        gulp.parallel('prettier', 'browser-sync', 'watch')
   )
-  // gulp.parallel('clear-cache', 'smart-grid', 'sass', 'scripts', 'browser-sync', 'watch')
 );
 
 gulp.task('build',

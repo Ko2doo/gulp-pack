@@ -1,9 +1,8 @@
-.header{
-	padding: rem(30) 0 rem(25);
+.header {
+  padding: rem(30) 0 rem(25);
 
-
-	& > p:first-child{
-		@include font(em(14), 600);
-		text-align: center;
-	}
+  & > p:first-child {
+    @include font(em(14), 600);
+    text-align: center;
+  }
 }

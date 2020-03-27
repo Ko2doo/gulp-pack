@@ -2,11 +2,11 @@
 
 // переводим пиксели в ремы вызываем так: rem(18px);
 @function rem($px) {
-	@return ($px / 16) +rem;
+  @return ($px / 16) + rem;
 }
 
 @function em($px) {
-	@return ($px / 16) +em;
+  @return ($px / 16) + em;
 }
 
 .container {
