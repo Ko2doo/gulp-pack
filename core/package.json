@@ -4,11 +4,14 @@
   "description": "Фронтенд окружение для сборки проектов",
   "main": "index.html",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
     "browser-sync": "^2.26.7",
     "del": "^4.1.1",
     "gulp": "^4.0.2",
     "gulp-add-src": "^1.0.0",
     "gulp-autoprefixer": "^6.1.0",
+    "gulp-babel": "^8.0.0",
     "gulp-cache": "^1.1.3",
     "gulp-concat": "^2.6.1",
     "gulp-cssnano": "^2.1.3",
@@ -16,8 +19,10 @@
     "gulp-htmlhint": "^3.0.0",
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
+    "gulp-sourcemaps": "^2.6.5",
     "gulp-uglifyjs": "^0.6.2",
-    "htmlhint-htmlacademy": "^1.0.3"
+    "htmlhint-htmlacademy": "^1.0.3",
+    "merge-stream": "^2.0.0"
   },
   "dependencies": {
     "jquery": "^3.4.1",

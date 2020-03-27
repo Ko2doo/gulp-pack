@@ -12,7 +12,10 @@ var gulp            = require('gulp'),
     rename          = require('gulp-rename'),
     del             = require('del'),
     cache           = require('gulp-cache'),
-    autoprefixer    = require('gulp-autoprefixer');
+    autoprefixer    = require('gulp-autoprefixer'),
+    babel           = require('gulp-babel'),
+    sourcemaps      = require('gulp-sourcemaps'),
+    merge           = require('merge-stream');
 
 // Таск для Sass
 gulp.task('sass', async function() {
@@ -80,24 +83,77 @@ gulp.task('code', function() {
   .pipe(browserSync.reload({ stream: true }))
 });
 
-// Объединяем все js либы в один файл
-gulp.task('scripts', async function() {
-  return gulp.src(['node_modules/jquery/dist/jquery.js'])
-    .pipe(addsrc.append('node_modules/jquery-circle-progress/dist/circle-progress.js'))
-    .pipe(concat('libs.js'))
-    .pipe(gulp.dest('app/js'))
-    .pipe(browserSync.reload({stream: true}));
+// Объединяем все js в один файл
+
+
+gulp.task('scriptLib', function() {
+  return gulp
+        .src('./app/js/libs/*.js')
+        .pipe(concat('libs.js'))
+        .pipe(gulp.dest('./app/js'))
+        .pipe(browserSync.reload({ stream: true }))
+});
+gulp.task('scriptMain', function() {
+  return gulp
+        .src([
+          './app/js/main/test.js',
+          './app/js/main/test2.js'
+        ])
+        .pipe(concat('main.js'))
+        .pipe(gulp.dest('./app/js'))
+        .pipe(browserSync.reload({ stream: true }))
+});
+gulp.task('scriptAll', function() {
+  return gulp
+        .src([
+        './app/js/libs.js',
+        './app/js/main.js'
+        ])
+        .pipe(concat('index.js'))
+        .pipe(babel())
+        .pipe(gulp.dest('./app/js/'))
+        .pipe(browserSync.reload({ stream: true }))
+});
+gulp.task('scriptMin', function() {
+  return gulp
+        .src('./app/js/index.js')
+        .pipe(uglify())
+        .pipe(rename({suffix: '.min'}))
+        .pipe(gulp.dest('./app/js/'))
 });
 
+  // return gulp.src('app/js')
+  //   .pipe(addsrc.prepend('./app/js/libs/**/*.js'))
+  //   .pipe(concat('libs.js'))
+  //   .pipe(gulp.dest('./app/js'))
+  //   .pipe(addsrc.append('./app/js/main/**/*.js'))
+  //   .pipe(concat('main.js'))
+  //   .pipe(gulp.dest('./app/js'))
+  //   .pipe(addsrc.append([
+  //     './app/js/libs.js',
+  //     './app/js/main.js'
+  //   ]))
+  //   .pipe(concat('index.js'))
+  //   .pipe(babel())
+  //   // минификация скриптов
+  //   .pipe(addsrc.append('./app/js/index.js'))
+  //   .pipe(uglify())
+  //   .pipe(rename({suffix: '.min'}))
+  //   .pipe(gulp.src('./app/js/index.js'))
+    // .pipe(sourcemaps.init({largeFile: true}))
+    // .pipe(sourcemaps.write("./maps/"))
+    // .pipe(gulp.dest('./app/js'))
+
+
 // объединям все css библиотеки в одну
-gulp.task('css-lib', function() {
-  return gulp.src([
-      'node_modules/normalize.css/normalize.css',
-    ])
-    .pipe(concat('_lib.scss'))
-    .pipe(gulp.dest('app/scss'))
-    .pipe(browserSync.reload({stream: true}));
-});
+// gulp.task('css-lib', function() {
+//   return gulp.src([
+//       'node_modules/normalize.css/normalize.css',
+//     ])
+//     .pipe(concat('_lib.scss'))
+//     .pipe(gulp.dest('app/scss'))
+//     .pipe(browserSync.reload({stream: true}));
+// });
 
 
 gulp.task('clean', async function() {
@@ -143,11 +199,17 @@ gulp.task('prebuild', async function(){
 gulp.task('watch', function() {
   gulp.watch('app/scss/**/*.scss', gulp.parallel('sass'));
   gulp.watch('app/**/*.html', gulp.parallel('code'));
-  gulp.watch(['app/js/common.js'], gulp.parallel('scripts'));
+  gulp.watch('app/js/main/*.js', gulp.series('scriptLib', 'scriptMain', 'scriptAll', 'scriptMin'));
 });
 
 gulp.task('default',
-     gulp.parallel('clear-cache', 'smart-grid', 'sass', 'css-lib', 'scripts', 'browser-sync', 'watch'));
+  gulp.series(
+        gulp.parallel('clear-cache', 'smart-grid', 'sass'),
+        gulp.series('scriptLib', 'scriptMain', 'scriptAll'),
+        gulp.parallel( 'browser-sync', 'watch')
+  )
+  // gulp.parallel('clear-cache', 'smart-grid', 'sass', 'scripts', 'browser-sync', 'watch')
+);
 
 gulp.task('build',
      gulp.series('clean', 'clear-cache', 'prebuild'));
