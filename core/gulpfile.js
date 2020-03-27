@@ -7,15 +7,14 @@ var gulp            = require('gulp'),
     addsrc          = require('gulp-add-src'),
     gcmq            = require('gulp-group-css-media-queries'),
     concat          = require('gulp-concat'),
-    uglify          = require('gulp-uglifyjs'),
+    minJs          = require('gulp-terser'),
     cssnano         = require('gulp-cssnano'),
     rename          = require('gulp-rename'),
     del             = require('del'),
     cache           = require('gulp-cache'),
     autoprefixer    = require('gulp-autoprefixer'),
     babel           = require('gulp-babel'),
-    sourcemaps      = require('gulp-sourcemaps'),
-    merge           = require('merge-stream');
+    sourcemaps      = require('gulp-sourcemaps');
 
 // Таск для Sass
 gulp.task('sass', async function() {
@@ -117,7 +116,7 @@ gulp.task('scriptAll', function() {
 gulp.task('scriptMin', function() {
   return gulp
         .src('./app/js/index.js')
-        .pipe(uglify())
+        .pipe(minJs())
         .pipe(rename({suffix: '.min'}))
         .pipe(gulp.dest('./app/js/'))
 });

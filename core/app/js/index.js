@@ -669,7 +669,7 @@ var hello = function hello(subject) {
   return console.log("Hello, ".concat(subject, "!"));
 };
 
-document.write = "Hello, ".concat(subject, "!");
+alert('hello man');
 
 var hello2 = function hello2(subject) {
   return console.log("Hello, ".concat(subject, "!"));
