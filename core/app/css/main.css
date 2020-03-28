@@ -577,6 +577,7 @@ body {
   padding-top: 1.25rem;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
+  position: absolute;
 }
 
 .section-hello .col {

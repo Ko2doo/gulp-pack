@@ -1,0 +1,4 @@
+package.json
+package-lock.json
+/app/js/**/*.min.js
+/app/css/**/*.min.css

@@ -3,6 +3,15 @@
   "version": "1.0.0",
   "description": "Фронтенд окружение для сборки проектов",
   "main": "index.html",
+  "scripts": {},
+  "editorconfig-cli": [
+    "./app/*.html",
+    "*.json",
+    "./app/*.js",
+    "./app/js/**/*.js",
+    "./app/img/**/*.svg",
+    "./app/scss/**/*.{sass,scss}"
+  ],
   "devDependencies": {
     "@babel/core": "^7.9.0",
     "@babel/preset-env": "^7.9.0",
@@ -24,11 +33,9 @@
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
-    "gulp-stylelint": "^13.0.0",
     "gulp-terser": "^1.2.0",
     "gulp-w3c-html-validator": "^2.0.0",
-    "htmlhint-htmlacademy": "^1.0.3",
-    "stylelint-scss": "^3.16.0"
+    "htmlhint-htmlacademy": "^1.0.3"
   },
   "dependencies": {
     "jquery": "^3.4.1",
