@@ -17,7 +17,8 @@ var gulp            = require('gulp'),
     sourcemaps      = require('gulp-sourcemaps'),
     prettier        = require('gulp-prettier'),
     htmlValidator   = require('gulp-w3c-html-validator'),
-    eslint          = require('gulp-eslint');
+    eslint          = require('gulp-eslint'),
+    plumber         = require('gulp-plumber');
 
 //таск для синхонизации с браузером
 gulp.task('browser-sync', async function(cb) {
@@ -71,6 +72,7 @@ gulp.task('html', function() {
   return gulp.src('./app/**/*.html')
   .pipe(htmlhint(htmlhintConfig))
   .pipe(htmlhint.reporter())
+  .pipe(plumber())
   .pipe(htmlValidator())
   .pipe(browserSync.reload({ stream: true }))
 });
@@ -78,6 +80,7 @@ gulp.task('html', function() {
 // Таск для стилей
 gulp.task('styles', async function() {
   return gulp.src('./app/scss/**/*.scss')
+    .pipe(plumber())
     .pipe(sass({
         outputStyle: 'expanded',
         errorLogToConsole: true
@@ -101,6 +104,7 @@ gulp.task('stylesMin', async function() {
 gulp.task('scriptLib', function() {
   return gulp
         .src('./app/js/libs/*.js')
+        .pipe(plumber())
         .pipe(concat('libs.js'))
         .pipe(gulp.dest('./app/js'))
         .pipe(browserSync.reload({ stream: true }))
@@ -112,7 +116,7 @@ gulp.task('scriptMain', function() {
           './app/js/main/test.js',
           './app/js/main/test2.js'
         ])
-        .pipe(eslint())
+        .pipe(plumber())
         .pipe(concat('main.js'))
         .pipe(gulp.dest('./app/js'))
         .pipe(browserSync.reload({ stream: true }))
@@ -124,6 +128,7 @@ gulp.task('scriptAll', function() {
         './app/js/libs.js',
         './app/js/main.js'
         ])
+        .pipe(plumber())
         .pipe(concat('index.js'))
         .pipe(babel())
         .pipe(gulp.dest('./app/js/'))
@@ -147,6 +152,7 @@ gulp.task('prettier', function() {
           './app/js/main/*.js',
           './app/js/libs/*.js'
         ])
+        .pipe(plumber())
         .pipe(prettier({editorconfig: true}))
         .pipe(gulp.dest(function(file){
             return file.base;
