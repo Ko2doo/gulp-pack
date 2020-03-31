@@ -1,23 +1,37 @@
+// основные модули
 var gulp            = require('gulp'),
-    sass            = require('gulp-sass'),
+    babel           = require('gulp-babel'),
+    browserSync     = require('browser-sync');
+// модули разметки
+
+// модули стилей
+var sass            = require('gulp-sass'),
     smartgrid       = require('smart-grid'),
-    htmlhint        = require("gulp-htmlhint"),
-    htmlhintConfig  = require('htmlhint-htmlacademy'),
-    browserSync     = require('browser-sync'),
-    addsrc          = require('gulp-add-src'),
     gcmq            = require('gulp-group-css-media-queries'),
-    concat          = require('gulp-concat'),
-    minJs           = require('gulp-terser'),
     cssnano         = require('gulp-cssnano'),
+    autoprefixer    = require('gulp-autoprefixer'),
+    postcss         = require('gulp-postcss'),
+    reporter        = require('postcss-reporter'),
+    syntax_scss     = require('postcss-scss');
+// модули скриптов
+var minJs           = require('gulp-terser');
+// модули изображений
+
+// модули валидации, проверок и исправлений
+var htmlhint        = require("gulp-htmlhint"),
+    htmlhintConfig  = require('htmlhint-htmlacademy'),
+    htmlValidator   = require('gulp-w3c-html-validator'),
+    prettier        = require('gulp-prettier'),
+    stylelint       = require('stylelint'),
+    gulpstylelint   = require('gulp-stylelint'),
+    eslint          = require('gulp-eslint');
+// остальные модули
+var addsrc          = require('gulp-add-src'),
+    concat          = require('gulp-concat'),
     rename          = require('gulp-rename'),
     del             = require('del'),
     cache           = require('gulp-cache'),
-    autoprefixer    = require('gulp-autoprefixer'),
-    babel           = require('gulp-babel'),
     sourcemaps      = require('gulp-sourcemaps'),
-    prettier        = require('gulp-prettier'),
-    htmlValidator   = require('gulp-w3c-html-validator'),
-    eslint          = require('gulp-eslint'),
     plumber         = require('gulp-plumber');
 
 //таск для синхонизации с браузером
@@ -75,6 +89,29 @@ gulp.task('html', function() {
   .pipe(plumber())
   .pipe(htmlValidator())
   .pipe(browserSync.reload({ stream: true }))
+});
+
+gulp.task("scss-lint", async function() {
+
+  // Stylelint config rules
+  var stylelintConfig = gulp.src('./.stylelintrc');
+  var processors = [
+    stylelint(stylelintConfig),
+    reporter({
+      clearMessages: true,
+      throwError: true,
+      fix: true
+    })
+  ];
+
+  return gulp.src(
+      ['./app/scss/**/*.scss',
+      // Ignore linting lib assets
+      // Useful if you have bower components
+      '!./app/scss/libs/**/*.scss']
+    )
+    .pipe(plumber())
+    .pipe(postcss(processors, {syntax: syntax_scss}));
 });
 
 // Таск для стилей
@@ -200,15 +237,15 @@ gulp.task('prebuild', async function(){
 
 // Следим за файлами
 gulp.task('watch', function() {
-    gulp.watch('app/**/*.html', gulp.parallel('html'));
-  gulp.watch('app/scss/**/*.scss', gulp.series('styles', 'stylesMin'));
+  gulp.watch('app/**/*.html', gulp.parallel('html'));
+  gulp.watch('app/scss/**/*.scss', gulp.series('scss-lint', 'styles', 'stylesMin'));
   gulp.watch('app/js/main/*.js', gulp.series('scriptLib', 'scriptMain', 'scriptAll', 'scriptMin'));
 });
 
 gulp.task('default',
   gulp.series(
         gulp.parallel('clear-cache', 'smart-grid'),
-        gulp.series('html', 'styles', 'stylesMin'),
+        gulp.series('html', 'scss-lint' , 'styles', 'stylesMin'),
         gulp.series('scriptLib', 'scriptMain', 'scriptAll'),
         gulp.parallel('prettier', 'browser-sync', 'watch')
   )
