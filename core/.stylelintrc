@@ -2,10 +2,12 @@
   "extends": [
     "stylelint-config-standard",
     "stylelint-config-standard-scss",
-    "stylelint-config-recommended-scss"
+    "stylelint-config-recommended-scss",
+    "stylelint-config-htmlacademy"
   ],
   "plugins": [
-  "stylelint-order"
+  "stylelint-order",
+  "stylelint-order-htmlacademy"
   ],
   "rules": {
     "indentation": "tab",

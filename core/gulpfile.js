@@ -9,10 +9,7 @@ var sass            = require('gulp-sass'),
     smartgrid       = require('smart-grid'),
     gcmq            = require('gulp-group-css-media-queries'),
     cssnano         = require('gulp-cssnano'),
-    autoprefixer    = require('gulp-autoprefixer'),
-    postcss         = require('gulp-postcss'),
-    reporter        = require('postcss-reporter'),
-    syntax_scss     = require('postcss-scss');
+    autoprefixer    = require('gulp-autoprefixer');
 // модули скриптов
 var minJs           = require('gulp-terser');
 // модули изображений
@@ -22,8 +19,6 @@ var htmlhint        = require("gulp-htmlhint"),
     htmlhintConfig  = require('htmlhint-htmlacademy'),
     htmlValidator   = require('gulp-w3c-html-validator'),
     prettier        = require('gulp-prettier'),
-    stylelint       = require('stylelint'),
-    gulpstylelint   = require('gulp-stylelint'),
     eslint          = require('gulp-eslint');
 // остальные модули
 var addsrc          = require('gulp-add-src'),
@@ -42,6 +37,9 @@ gulp.task('browser-sync', async function(cb) {
     },
     notify: false
   }, cb);
+  gulp.watch('app/**/*.html', gulp.parallel('html'));
+  gulp.watch('app/scss/**/*.scss', gulp.series('styles', 'stylesOrg'));
+  gulp.watch('app/js/main/*.js', gulp.series('scriptLib', 'scriptMain', 'scriptAll', 'scriptMin'));
 });
 
 // настройки сетки smart-grid
@@ -91,48 +89,35 @@ gulp.task('html', function() {
   .pipe(browserSync.reload({ stream: true }))
 });
 
-gulp.task("scss-lint", async function() {
-
-  // Stylelint config rules
-  var stylelintConfig = gulp.src('./.stylelintrc');
-  var processors = [
-    stylelint(stylelintConfig),
-    reporter({
-      clearMessages: true,
-      throwError: true,
-      fix: true
-    })
-  ];
-
-  return gulp.src(
-      ['./app/scss/**/*.scss',
-      // Ignore linting lib assets
-      // Useful if you have bower components
-      '!./app/scss/libs/**/*.scss']
-    )
-    .pipe(plumber())
-    .pipe(postcss(processors, {syntax: syntax_scss}));
-});
-
 // Таск для стилей
 gulp.task('styles', async function() {
-  return gulp.src('./app/scss/**/*.scss')
+  return gulp.src('./app/scss/main.scss')
+    .pipe(sourcemaps.init())
     .pipe(plumber())
     .pipe(sass({
         outputStyle: 'expanded',
         errorLogToConsole: true
-      })).on('error', sass.logError)
+      }))
+    .pipe(cssnano())
+    .pipe(rename({suffix: '.min'}))
     .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
     .pipe(gcmq()) //группировка медиазапросов
+    .pipe(sourcemaps.write('./maps/'))
     .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({stream: true}));
 });
 
-gulp.task('stylesMin', async function() {
-  return gulp.src('./app/css/main.css')
-    .pipe(cssnano())
-    .pipe(rename({suffix: '.min'}))
-    .pipe(gulp.dest('./app/css'))
+// несжатые стили для отслеживания и отладки
+gulp.task('stylesOrg', async function() {
+  return gulp.src('./app/scss/main.scss')
+    .pipe(plumber())
+    .pipe(sass({
+        outputStyle: 'expanded',
+        errorLogToConsole: true
+      }))
+    .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
+    .pipe(gcmq()) //группировка медиазапросов
+    .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({stream: true}));
 });
 
@@ -149,11 +134,10 @@ gulp.task('scriptLib', function() {
 // собираем рукописный код
 gulp.task('scriptMain', function() {
   return gulp
-        .src([
-          './app/js/main/test.js',
-          './app/js/main/test2.js'
-        ])
+        .src([])
         .pipe(plumber())
+        .pipe(eslint())
+        .pipe(eslint.format())
         .pipe(concat('main.js'))
         .pipe(gulp.dest('./app/js'))
         .pipe(browserSync.reload({ stream: true }))
@@ -165,9 +149,11 @@ gulp.task('scriptAll', function() {
         './app/js/libs.js',
         './app/js/main.js'
         ])
+        .pipe(sourcemaps.init())
         .pipe(plumber())
         .pipe(concat('index.js'))
         .pipe(babel())
+        .pipe(sourcemaps.write('./maps/'))
         .pipe(gulp.dest('./app/js/'))
         .pipe(browserSync.reload({ stream: true }))
 });
@@ -210,10 +196,11 @@ gulp.task('clear-cache', function (callback) {
 });
 
 gulp.task('prebuild', async function(){
-  var buildCSS = gulp.src(['app/css/**/*.css'])
-      .pipe(cssnano()) // минификация
-      .pipe(rename({suffix: '.min'}))
-      .pipe(gulp.dest('./../css'));
+  var buildCSS = gulp.src([
+    'app/css/**/*',
+    '!app/css/main.css'
+  ])
+    .pipe(gulp.dest('./../css'));
 
   var buildFonts = gulp.src('app/fonts/**/*')
       .pipe(gulp.dest('./../fonts'));
@@ -221,33 +208,27 @@ gulp.task('prebuild', async function(){
   var buildIMG = gulp.src('app/img/**/*')
       .pipe(gulp.dest('./../img'));
 
-  var buildJSLibs = gulp.src('app/js/libs.js')
-      .pipe(uglify())
-      .pipe(rename({suffix: '.min'}))
+  var buildJSIndex = gulp.src([
+    'app/js/index.min.js',
+  ])
       .pipe(gulp.dest('./../js'));
 
-  var buildJSCommon = gulp.src('app/js/common.js')
-      .pipe(uglify())
-      .pipe(rename({suffix: '.min'}))
-      .pipe(gulp.dest('./../js'));
+  var buildJSMap = gulp.src([
+    'app/js/maps/**/*.map',
+  ])
+      .pipe(gulp.dest('./../js/maps'));
 
   var buildHTML = gulp.src('app/**/*.html')
       .pipe(gulp.dest('./../'))
 });
 
-// Следим за файлами
-gulp.task('watch', function() {
-  gulp.watch('app/**/*.html', gulp.parallel('html'));
-  gulp.watch('app/scss/**/*.scss', gulp.series('scss-lint', 'styles', 'stylesMin'));
-  gulp.watch('app/js/main/*.js', gulp.series('scriptLib', 'scriptMain', 'scriptAll', 'scriptMin'));
-});
 
 gulp.task('default',
   gulp.series(
         gulp.parallel('clear-cache', 'smart-grid'),
-        gulp.series('html', 'scss-lint' , 'styles', 'stylesMin'),
+        gulp.series('html', 'styles', 'stylesOrg'),
         gulp.series('scriptLib', 'scriptMain', 'scriptAll'),
-        gulp.parallel('prettier', 'browser-sync', 'watch')
+        gulp.parallel('prettier', 'browser-sync')
   )
 );
 

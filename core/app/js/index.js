@@ -672,3 +672,4 @@ var hello2 = function hello2(subject) {
 };
 
 alert("hello");
+//# sourceMappingURL=maps/index.js.map

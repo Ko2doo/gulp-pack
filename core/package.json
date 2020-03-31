@@ -4,8 +4,7 @@
   "description": "Фронтенд окружение для сборки проектов",
   "main": "index.html",
   "scripts": {
-    "style:lint": "stylelint './app/scss/**/*.scss' --syntax scss",
-    "style:fix": "stylelint './app/scss/**/*.scss' --syntax scss --fix"
+    "eslint-fix": "eslint ./app/js/** --fix"
   },
   "editorconfig-cli": [
     "./app/*.html",
@@ -20,9 +19,12 @@
     "@babel/core": "^7.9.0",
     "@babel/node": "^7.8.7",
     "@babel/preset-env": "^7.9.0",
+    "babel-eslint": "^10.1.0",
     "browser-sync": "^2.26.7",
     "del": "^4.1.1",
     "editorconfig": "^0.15.3",
+    "eslint": "^6.8.0",
+    "eslint-config-google": "^0.14.0",
     "gulp": "^4.0.2",
     "gulp-add-src": "^1.0.0",
     "gulp-autoprefixer": "^6.1.0",
@@ -39,20 +41,9 @@
     "gulp-rename": "^1.4.0",
     "gulp-sass": "^4.0.2",
     "gulp-sourcemaps": "^2.6.5",
-    "gulp-stylelint": "^13.0.0",
     "gulp-terser": "^1.2.0",
     "gulp-w3c-html-validator": "^2.0.0",
-    "htmlhint-htmlacademy": "^1.0.3",
-    "postcss-reporter": "^6.0.1",
-    "postcss-scss": "^2.0.0",
-    "stylelint": "^13.2.1",
-    "stylelint-config-htmlacademy": "^0.1.4",
-    "stylelint-config-recommended-scss": "^4.2.0",
-    "stylelint-config-standard": "^20.0.0",
-    "stylelint-config-standard-scss": "^1.1.0",
-    "stylelint-order": "^4.0.0",
-    "stylelint-order-htmlacademy": "^1.0.1",
-    "stylelint-scss": "^3.16.0"
+    "htmlhint-htmlacademy": "^1.0.3"
   },
   "dependencies": {
     "jquery": "^3.4.1",

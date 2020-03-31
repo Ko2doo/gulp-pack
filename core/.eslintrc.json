@@ -1,11 +1,17 @@
 {
+	"parserOptions": {
+		"ecmaVersion": 8,
+		"sourceType": "module"
+	},
 	"env": {
 		"browser": true,
-		"commonjs": true,
 		"es6": true,
 		"node": true
 	},
-	"extends": "eslint:recommended",
+	"extends": [
+		"eslint:recommended",
+		"google"
+	],
 	"parser": "babel-eslint",
 	"parserOptions": {
 		"ecmaVersion": 6,
@@ -27,6 +33,16 @@
 		"semi": [
 			"error",
 			"always"
+		],
+		"no-console": [
+		"error",
+			{
+			"allow": [
+					"warn",
+					"error",
+					"log"
+				]
+			}
 		]
 	}
 }

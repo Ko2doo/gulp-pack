@@ -605,7 +605,7 @@ body {
 
 .section-hello .col:nth-child(3) {
   height: 10rem;
-  background-color: darksalmon;
+  background-color: yellow;
 }
 
 .section-hello .col-txt {
