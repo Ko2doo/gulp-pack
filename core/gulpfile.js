@@ -18,7 +18,8 @@ var imageResize     = require('gulp-image-resize'),
     imageminGiflossy= require('imagemin-giflossy'),
     imageminPngquant= require('imagemin-pngquant'),
     imageminZopfli  = require('imagemin-zopfli'),
-    imageminMozjpeg  = require('imagemin-mozjpeg');
+    imageminMozjpeg = require('imagemin-mozjpeg')
+    favicons        = require('gulp-favicons');
 // модули валидации, проверок и исправлений
 var htmlhint        = require("gulp-htmlhint"),
     htmlhintConfig  = require('htmlhint-htmlacademy'),
@@ -37,7 +38,7 @@ var addsrc          = require('gulp-add-src'),
 
 // настройки сетки smart-grid
 gulp.task('smart-grid', (cb) => {
-  smartgrid('app/scss/stylesheets/', {
+  smartgrid('app/scss/libs/', {
     outputStyle: 'scss',
     filename: '_smart-grid',
     columns: 12, // number of grid columns
@@ -185,7 +186,7 @@ gulp.task('images', function() {
   return gulp.src([
           "./app/imgStock/**/*.{jpg,jpeg,png,gif,svg}",
   				"!./app/imgStock/svg/*.svg",
-  				"!./app/imgStock/favicon.{jpg,jpeg,png,gif}"
+  				"!./app/imgStock/favicons/**/*.{jpg,jpeg,png,gif}"
         ])
         .pipe(imageResize({
            imageMagick: true,
@@ -221,6 +222,40 @@ gulp.task('images', function() {
       		})
       	]))
         .pipe(gulp.dest('./app/img/'))
+        .pipe(browserSync.reload({ stream: true }))
+});
+
+// gulp.task('webp', function() {
+//   return gulp
+//         .src('./app/imgStock/**/*_webp.{jpg,jpeg,png}')
+//         .pipe(plumber())
+//         .pipe(webp.imageminWebp({
+//       		lossless: true,
+//       		quality: 90,
+//       		alphaQuality: 90
+//       	}))
+//         .pipe(gulp.dest('./app/img/'))
+//         .pipe(browserSync.reload({ stream: true }))
+// });
+
+gulp.task('favicons', function() {
+  return gulp
+        .src('./app/imgStock/favicons/favicon.{jpg,jpeg,png,gif}')
+        .pipe(plumber())
+        .pipe(favicons({
+          icons: {
+            appleIcon: true,
+            favicons: true,
+            online: false,
+            appleStartup: false,
+            android: false,
+            firefox: false,
+            yandex: false,
+            windows: false,
+            coast: false
+          }
+        }))
+        .pipe(gulp.dest('./app/img/favicons/'))
         .pipe(browserSync.reload({ stream: true }))
 });
 
@@ -276,7 +311,12 @@ gulp.task('browser-sync', async function(cb) {
   gulp.watch('app/**/*.html', gulp.parallel('html'));
   gulp.watch('app/scss/**/*.scss', gulp.series('styles', 'stylesOrg'));
   gulp.watch('app/js/main/*.js', gulp.series('scriptClear', 'scriptLib', 'scriptMain', 'scriptAll', 'scriptMin'));
-  gulp.watch('app/imgStock/**/*.{jpg,jpeg,png,gif,svg}', gulp.series('clear-cache', 'images'));
+  gulp.watch([
+          "./app/imgStock/**/*.{jpg,jpeg,png,gif,svg}",
+  				"!./app/imgStock/svg/*.svg",
+  				"!./app/imgStock/favicons/**/*.{jpg,jpeg,png,gif}"
+        ], gulp.series('clear-cache', 'images'));
+  gulp.watch('app/imgStock/favicons/favicon.{jpg,jpeg,png,gif}', gulp.series('favicons'));
 });
 
 
