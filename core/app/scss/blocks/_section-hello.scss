@@ -31,11 +31,11 @@
     }
     &:nth-child(2) {
       height: rem(320);
-      background-color: moccasin;
+      background-color: red;
     }
     &:nth-child(3) {
       height: rem(160);
-      background-color: yellow;
+      background-color: black;
     }
 
     &-txt {
@@ -44,7 +44,7 @@
     }
   }
 
-  & > p:first-child {
+  & > p {
     @include font(em(22), 600);
     margin: rem(20) 0 rem(20);
     text-align: center;

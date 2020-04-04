@@ -600,12 +600,12 @@ body {
 
 .section-hello .col:nth-child(2) {
   height: 20rem;
-  background-color: moccasin;
+  background-color: red;
 }
 
 .section-hello .col:nth-child(3) {
   height: 10rem;
-  background-color: yellow;
+  background-color: black;
 }
 
 .section-hello .col-txt {
@@ -613,7 +613,7 @@ body {
   margin-bottom: 0.5rem;
 }
 
-.section-hello > p:first-child {
+.section-hello > p {
   font-size: 1.375em;
   font-weight: 600;
   margin: 1.25rem 0 1.25rem;

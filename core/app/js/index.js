@@ -660,16 +660,4 @@ function _typeof(obj) { "@babel/helpers - typeof"; if (typeof Symbol === "functi
     module.exports = html5;
   }
 })(typeof window !== "undefined" ? window : void 0, document);
-
-var hello = function hello(subject) {
-  return console.log("Hello, ".concat(subject, "!"));
-};
-
-alert("hello man");
-
-var hello2 = function hello2(subject) {
-  return console.log("Hello, ".concat(subject, "!"));
-};
-
-alert("hello");
 //# sourceMappingURL=maps/index.js.map

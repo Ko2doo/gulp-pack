@@ -35,6 +35,9 @@
     "gulp-eslint": "^6.0.0",
     "gulp-group-css-media-queries": "^1.2.2",
     "gulp-htmlhint": "^3.0.0",
+    "gulp-image-resize": "^0.13.1",
+    "gulp-imagemin": "^7.1.0",
+    "gulp-newer": "^1.4.0",
     "gulp-plumber": "^1.2.1",
     "gulp-postcss": "^8.0.0",
     "gulp-prettier": "^3.0.0",
@@ -43,7 +46,13 @@
     "gulp-sourcemaps": "^2.6.5",
     "gulp-terser": "^1.2.0",
     "gulp-w3c-html-validator": "^2.0.0",
-    "htmlhint-htmlacademy": "^1.0.3"
+    "htmlhint-htmlacademy": "^1.0.3",
+    "imagemin": "^7.0.1",
+    "imagemin-giflossy": "^5.1.10",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-mozjpeg": "^8.0.0",
+    "imagemin-pngquant": "^8.0.0",
+    "imagemin-zopfli": "^6.0.0"
   },
   "dependencies": {
     "jquery": "^3.4.1",
