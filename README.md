@@ -6,9 +6,8 @@
 * используется [normalize.css](https://github.com/necolas/normalize.css/)
 * используется [gulp-htmlhint](https://github.com/bezoerb/gulp-htmlhint)
 * используются настройки проверки HTML по [актуальному кодгайду](https://github.com/htmlacademy/codeguide/blob/master/.htmlhintrc) от HTML Academy, ссылка на страницу плагина [htmlhint-htmlacademy](https://github.com/efiand/htmlhint-htmlacademy)
-* используется библиотека [jquery](https://jquery.com/)
-* используется библиотека [magnific-popup](https://dimsemenov.com/plugins/magnific-popup/)
-* При желании можно отключить jquery и magnific-popup
+* используется валидатор HTML [gulp-w3c-html-validator](https://www.npmjs.com/package/gulp-w3c-html-validator).
+* используется [imagemin](https://www.npmjs.com/package/gulp-imagemin) и [image-resize](https://www.npmjs.com/package/gulp-image-resize) для сжатия изображений.
 
 # Установка
 * установите [NodeJS](https://nodejs.org/en/)
@@ -22,37 +21,56 @@
 ! Если всё этапы пройдены верно, должен открыться браузер с запущенным локальным сервером.
 
 # Файловая структура:
-
 ```txt
-gulp-quick-start
-|-- app
-|   |-- css
-|   |-- fonts
-|   |-- js
-|   |-- scss
-|       |-- blocks
-|       |-- stylesheets
+gulp-pack
+|--core
+|   |-- app
+|   |   |-- css
+|   |   |-- fonts
+|   |   |-- imgStock
+|   |   |-- img
+|   |   |-- js
+|   |       |-- libs
+|   |       |-- main
+|   |   |-- scss
+|   |       |-- blocks
+|   |       |-- stylesheets
+|   |       |-- libs
+|   |
+|   |---  .babelrc
+|   |---  .editorconfig
+|   |---  .prettierignore
+|   |---  .prettierrc
+|   |---  gulpfile.js
+|   |---  LICENSE
+|   |---  package-lock.json
+|   |---  package.json
 |
 |--- .gitignore
-|---  gulpfile.js
-|---  LICENSE
-|---  package-lock.json
-|---  package.json
 |---  readme.md
 ```
+* Папка ```core``` - корневая папка разработки.
 
 * Папка ```app``` - используется во время разработки:
     * шрифты: ```app/fonts```
+    * исходные изображения: ```app/imgStock```
+    * отредактированные изображения: ```app/img```
     * JS-файлы: ```app/js```
+    * JS-библеотеки: ```app/js/libs```
+    * JS-пользовательские: ```app/js/main```
     * страница сайта: ```app/index.html```
     * SCSS-файлы: ```app/scss```
-* Папка ```dist``` - папка, в которую складывается готовый проект (при запуске ```gulp build```)
 
 # Команды
-* ```gulp``` - запуск сервера для разработки проекта
-* ```gulp build``` - собрать проект с оптимизацией без запуска сервера
+* ```gulp``` - запуск сервера для разработки проекта(вся работа происходит внутри папки ```app```).
+* ```gulp build``` - собрать проект с оптимизацией без запуска сервера(собирает все необходимые файлы за папку ```core``` в кореневую директорию.
 
 # Сторонние библиотеки
+* все сторонние библиотеки стилей и скриптов желательно подключать через CDN серверы в теге <link> в главный html файл!
+* Также стилевые библеотеки подключаються через папку ```app/scss/libs```, JS-библиотеки через папку ```app/js/libs```.
+
+Либо:
+
 * все сторонние библиотеки устанавливаются в папку ```node_modules```
     * для их загрузки воспользуйтеcь командой ```npm i package_name```
     * установка (пакеты необходимые для разработки) devDependencies ```npm i package_name --save-dev```
@@ -61,6 +79,27 @@ gulp-quick-start
 		```js
 		.pipe(addsrc.append('node_modules/указываем_путь_до_файла))
 		```
+# Работа с изображениями
+Все стоковые изображения хранить в папке ```app/imgStock``` иконки сайта(favicon) в папке ```app/imgStock/favicons```. Эти папки отслеживаються и при запущеном сервере и добавлении новых файлов автоматически запускаеться таск по обработке файлов которые помещаються в папку ```app/img``` для дальнейшего их использования на странице
+
+# Немного о скриптах
+В сборке используеться babel, так же все скрипты автоматически минимицируються и склеиваютсься в один файл (index.min.js) для подключения в html файл.
+
+Все "рукписные" скрипты можно записывать в отдельные файлы в папке ```app/js/main```, после создания нового скрипт-файла нужно опрекратить работу сервера, добавить путь к скрипт-файлу в массив ```gulp.src([])```, если важен порядок подключения, в gulpfile.js:
+		```core/gulpfile.js
+		gulp.task('scriptMain', function() {
+  		return gulp
+        	       .src(['app/js/main/**']) <---
+		```
+Либо оставить как есть.
+
+Все библеотеки и плагины скриптов можно записывать в отдельные файлы в папке ```app/js/libs```, после добавления нового скрипт-файла нужно опрекратить работу сервера, добавить путь к скрипт-файлу в массив ```gulp.src([])```, если важен порядок подключения, в gulpfile.js:
+		```core/gulpfile.js
+		gulp.task('scriptLib', function() {
+  		return gulp
+ 	               .src('app/js/libs/**') <---
+		```
+Либо оставить как есть.
 
 # Немного о CSS-сетке smart-grid
 В сборщик включена CSS-сетка [smart-grid](https://github.com/dmitry-lavrik/smart-grid) от [Дмитрия Лаврика](https://dmitrylavrik.ru/). Она позволяет избавиться от
@@ -154,5 +193,6 @@ P.S. Полезный ресурс [smart-grid](https://grid4web.ru/)
 
 # Подключение scss файлов для страниц:
 * в папке scss находится файл: main.scss
-* в папке stylesheets храним глобальные стили
+* в папке stylesheets храним глобальные стили и настройки
+* в папке libs храним плагины и библиотеки стилей
 * в папке blocks храним стили секций сайта, подключаем секции в файле main.scss
