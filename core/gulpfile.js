@@ -8,7 +8,7 @@ var gulp            = require('gulp'),
 var sass            = require('gulp-sass'),
     smartgrid       = require('smart-grid'),
     gcmq            = require('gulp-group-css-media-queries'),
-    cssnano         = require('gulp-cssnano'),
+    cleanCSS        = require('gulp-clean-css'),
     autoprefixer    = require('gulp-autoprefixer');
 // модули скриптов
 var minJs           = require('gulp-terser');
@@ -38,7 +38,7 @@ var addsrc          = require('gulp-add-src'),
 
 // настройки сетки smart-grid
 gulp.task('smart-grid', (cb) => {
-  smartgrid('app/scss/libs/', {
+  smartgrid('app/scss/**/*', {
     outputStyle: 'scss',
     filename: '_smart-grid',
     columns: 12, // number of grid columns
@@ -75,7 +75,7 @@ gulp.task('smart-grid', (cb) => {
 // таск html разметки
 
 gulp.task('html', function() {
-  return gulp.src('./app/**/*.html')
+  return gulp.src('app/**/*.html')
   .pipe(htmlhint(htmlhintConfig))
   .pipe(htmlhint.reporter())
   .pipe(plumber())
@@ -85,17 +85,16 @@ gulp.task('html', function() {
 
 // Таск для стилей
 gulp.task('styles', async function() {
-  return gulp.src('./app/scss/main.scss')
+  return gulp.src('app/scss/main.scss')
     .pipe(sourcemaps.init())
     .pipe(plumber())
     .pipe(sass({
         outputStyle: 'expanded',
         errorLogToConsole: true
       }))
-    .pipe(cssnano())
-    .pipe(rename({suffix: '.min'}))
     .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
-    .pipe(gcmq()) //группировка медиазапросов
+    .pipe(cleanCSS())
+    .pipe(rename({suffix: '.min'}))
     .pipe(sourcemaps.write('./maps/'))
     .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({stream: true}));
@@ -103,14 +102,13 @@ gulp.task('styles', async function() {
 
 // несжатые стили для отслеживания и отладки
 gulp.task('stylesOrg', async function() {
-  return gulp.src('./app/scss/main.scss')
+  return gulp.src('app/scss/main.scss')
     .pipe(plumber())
     .pipe(sass({
         outputStyle: 'expanded',
         errorLogToConsole: true
       }))
     .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
-    .pipe(gcmq()) //группировка медиазапросов
     .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({stream: true}));
 });
@@ -167,11 +165,11 @@ gulp.task('scriptMin', function() {
 gulp.task('prettier', function() {
   return gulp
         .src([
-          './app/**/*.html',
-          './app/scss/**/*.scss',
-          './app/css/**/*.css',
-          './app/js/main/*.js',
-          './app/js/libs/*.js'
+          'app/**/*.html',
+          'app/scss/**/*.scss',
+          'app/css/**/*.css',
+          'app/js/main/*.js',
+          'app/js/libs/*.js'
         ])
         .pipe(plumber())
         .pipe(prettier({editorconfig: true}))
@@ -184,9 +182,9 @@ gulp.task('prettier', function() {
 
 gulp.task('images', function() {
   return gulp.src([
-          "./app/imgStock/**/*.{jpg,jpeg,png,gif,svg}",
-  				"!./app/imgStock/svg/*.svg",
-  				"!./app/imgStock/favicons/**/*.{jpg,jpeg,png,gif}"
+          "app/imgStock/**/*.{jpg,jpeg,png,gif,svg}",
+  				"!app/imgStock/svg/*.svg",
+  				"!app/imgStock/favicons/**/*.{jpg,jpeg,png,gif}"
         ])
         .pipe(imageResize({
            imageMagick: true,
@@ -221,7 +219,7 @@ gulp.task('images', function() {
       			]
       		})
       	]))
-        .pipe(gulp.dest('./app/img/'))
+        .pipe(gulp.dest('app/img/'))
         .pipe(browserSync.reload({ stream: true }))
 });
 
@@ -240,7 +238,7 @@ gulp.task('images', function() {
 
 gulp.task('favicons', function() {
   return gulp
-        .src('./app/imgStock/favicons/favicon.{jpg,jpeg,png,gif}')
+        .src('app/imgStock/favicons/favicon.{jpg,jpeg,png,gif}')
         .pipe(plumber())
         .pipe(favicons({
           icons: {
@@ -255,7 +253,7 @@ gulp.task('favicons', function() {
             coast: false
           }
         }))
-        .pipe(gulp.dest('./app/img/favicons/'))
+        .pipe(gulp.dest('app/img/favicons/'))
         .pipe(browserSync.reload({ stream: true }))
 });
 
@@ -312,9 +310,9 @@ gulp.task('browser-sync', async function(cb) {
   gulp.watch('app/scss/**/*.scss', gulp.series('styles', 'stylesOrg'));
   gulp.watch('app/js/main/*.js', gulp.series('scriptClear', 'scriptLib', 'scriptMain', 'scriptAll', 'scriptMin'));
   gulp.watch([
-          "./app/imgStock/**/*.{jpg,jpeg,png,gif,svg}",
-  				"!./app/imgStock/svg/*.svg",
-  				"!./app/imgStock/favicons/**/*.{jpg,jpeg,png,gif}"
+          "app/imgStock/**/*.{jpg,jpeg,png,gif,svg}",
+  				"!app/imgStock/svg/*.svg",
+  				"!app/imgStock/favicons/**/*.{jpg,jpeg,png,gif}"
         ], gulp.series('clear-cache', 'images'));
   gulp.watch('app/imgStock/favicons/favicon.{jpg,jpeg,png,gif}', gulp.series('favicons'));
 });
@@ -324,7 +322,7 @@ gulp.task('default',
   gulp.series(
         gulp.parallel('clear-cache', 'smart-grid'),
         gulp.series('html', 'styles', 'stylesOrg'),
-        gulp.series('scriptClear', 'scriptLib', 'scriptMain', 'scriptAll'),
+        gulp.series('scriptClear', 'scriptLib', 'scriptMain', 'scriptAll', 'scriptMin'),
         gulp.parallel('prettier', 'browser-sync')
   )
 );
