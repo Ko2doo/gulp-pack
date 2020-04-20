@@ -5,6 +5,7 @@
 * используется CSS-сетка [smart-grid](https://github.com/dmitry-lavrik/smart-grid) на основе Bootstrap для быстрой адаптивной вёрстки
 * используется [normalize.css](https://github.com/necolas/normalize.css/)
 * используется [gulp-htmlhint](https://github.com/bezoerb/gulp-htmlhint)
+* используется [gulp-sourcemaps](https://www.npmjs.com/package/gulp-sourcemaps)
 * используются настройки проверки HTML по [актуальному кодгайду](https://github.com/htmlacademy/codeguide/blob/master/.htmlhintrc) от HTML Academy, ссылка на страницу плагина [htmlhint-htmlacademy](https://github.com/efiand/htmlhint-htmlacademy)
 * используется библиотека [jquery](https://jquery.com/)
 * используется библиотека [magnific-popup](https://dimsemenov.com/plugins/magnific-popup/)

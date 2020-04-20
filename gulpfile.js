@@ -5,6 +5,7 @@ var gulp            = require('gulp'),
     htmlhintConfig  = require('htmlhint-htmlacademy'),
     browserSync     = require('browser-sync'),
     addsrc          = require('gulp-add-src'),
+    sourcemaps      = require('gulp-sourcemaps'),
     gcmq            = require('gulp-group-css-media-queries'),
     concat          = require('gulp-concat'),
     uglify          = require('gulp-uglifyjs'),
@@ -18,12 +19,16 @@ var gulp            = require('gulp'),
 // Таск для Sass
 gulp.task('sass', async function() {
   return gulp.src('app/scss/**/*.scss')
+    .pipe(sourcemaps.init())
     .pipe(sass({
         outputStyle: 'expanded',
         errorLogToConsole: true
       })).on('error', sass.logError)
     .pipe(autoprefixer(['last 15 versions', '> 1%', 'ie 8', 'ie 7'], { cascade: true }))
     .pipe(gcmq()) //группировка медиазапросов
+    .pipe(cssnano()) // минификация
+    .pipe(rename({suffix: '.min'}))
+    .pipe(sourcemaps.write('./maps/'))
     .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({stream: true}));
 });
@@ -86,6 +91,8 @@ gulp.task('scripts', async function() {
   return gulp.src(['node_modules/jquery/dist/jquery.js'])
     .pipe(addsrc.append('node_modules/magnific-popup/dist/jquery.magnific-popup.js'))
     .pipe(concat('libs.js'))
+    .pipe(uglify())
+    .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('app/js'))
     .pipe(browserSync.reload({stream: true}));
 });
@@ -97,6 +104,8 @@ gulp.task('css-lib', function() {
       'node_modules/magnific-popup/dist/magnific-popup.css'
     ])
     .pipe(concat('libs.css'))
+    .pipe(cssnano()) // минификация
+    .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('app/css'))
     .pipe(browserSync.reload({stream: true}));
 });
@@ -112,8 +121,6 @@ gulp.task('clear-cache', function (callback) {
 
 gulp.task('prebuild', async function(){
   var buildCSS = gulp.src(['app/css/**/*.css'])
-      .pipe(cssnano()) // минификация
-      .pipe(rename({suffix: '.min'}))
       .pipe(gulp.dest('dist/css'))
 
   var buildFonts = gulp.src('app/fonts/**/*')
@@ -123,8 +130,6 @@ gulp.task('prebuild', async function(){
       .pipe(gulp.dest('dist/img'))
 
   var buildJSLibs = gulp.src('app/js/libs.js')
-      .pipe(uglify())
-      .pipe(rename({suffix: '.min'}))
       .pipe(gulp.dest('dist/js'))
 
   var buildJSCommon = gulp.src('app/js/common.js')
