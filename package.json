@@ -24,7 +24,7 @@
   "dependencies": {
     "smart-grid": "^2.1.2",
     "normalize.css": "^8.0.1",
-    "jquery": "^3.4.1",
+    "jquery": "^3.5.0",
     "magnific-popup": "^1.1.0"
   },
   "author": "ko2doo@github.com",
